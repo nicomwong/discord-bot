@@ -1,2 +1,2 @@
-# simp-discord-bot
-Discord Bot for Simpin Club Discord server.
+# KIPG
+Keep it PG Discord Bot
