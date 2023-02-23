@@ -1,18 +1,12 @@
 import discord
-import random
+import openai
+import os
+
+# Set up OpenAI API key
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 with open("token", "r") as tokenFile:
     TOKEN = tokenFile.read()
-
-happy_messages = [
-    "Yay! That's great to hear!",
-    "Awesome!",
-    "You made my day!",
-    "So happy for you!",
-    "Hooray!",
-    "That's fantastic news!"
-]
-
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -28,12 +22,23 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
-
-    channel = str(message.channel)
-
-    if channel != "bot":
+    if str(message.channel) != "bot":
         return
 
-    await message.channel.send(random.choice(happy_messages))
+    prompt = str(message.content)
+
+    api_response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=prompt,
+        max_tokens=256,
+        temperature=0
+    ).choices[0].text
+
+    response = "I am an OpenAI AI model.\nQuery: \"{}\"\nResponse: {}\"".format(
+        prompt, api_response)
+
+    print(response)
+
+    await message.channel.send(response)
 
 client.run(TOKEN)
