@@ -1,2 +1,1 @@
-# KIPG
-Keep it PG Discord Bot
+Simpin' Club Discord Bot
