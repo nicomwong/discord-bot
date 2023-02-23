@@ -1,6 +1,9 @@
 import discord
 import random
 
+with open("token", "r") as tokenFile:
+    TOKEN = tokenFile.read()
+
 happy_messages = [
     "Yay! That's great to hear!",
     "Awesome!",
@@ -33,5 +36,4 @@ async def on_message(message):
 
     await message.channel.send(random.choice(happy_messages))
 
-client.run(
-    'MTA3ODE1ODc4NzU0MzgzMDYwOA.G7jtZn.lmDbVhhmObxZCzgZAw1YhIsmSqKXeIGZ2AupHc')
+client.run(TOKEN)
