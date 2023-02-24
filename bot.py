@@ -31,10 +31,10 @@ async def on_message(message):
         model="text-davinci-003",
         prompt=prompt,
         max_tokens=256,
-        temperature=0
+        temperature=0.1
     ).choices[0].text
 
-    response = "I am an OpenAI AI model.\nQuery: \"{}\"\nResponse: {}\"".format(
+    response = "Query: {}\n\nResponse:\n{}".format(
         prompt, api_response)
 
     print(response)
