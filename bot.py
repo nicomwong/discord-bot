@@ -25,20 +25,19 @@ async def on_message(message):
     if str(message.channel) != "bot":
         return
 
-    prompt = str(message.content)
+    chatMessage = str(message.content)
 
-    api_response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=prompt,
-        max_tokens=256,
-        temperature=0.1
-    ).choices[0].text
+    api_response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "user", "content": chatMessage}
+        ],
+        max_tokens=512
+    ).choices[0].message.content
 
-    response = "Query: {}\n\nResponse:\n{}".format(
-        prompt, api_response)
+    print(chatMessage)
+    print(api_response)
 
-    print(response)
-
-    await message.channel.send(response)
+    await message.channel.send(api_response)
 
 client.run(TOKEN)
